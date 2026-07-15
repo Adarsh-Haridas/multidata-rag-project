@@ -180,9 +180,9 @@ class VectorService:
                         "filename": match["metadata"].get("filename", ''),
                         "chunk_id": match["metadata"].get("chunk_id", 0),
                         "token_count": match['metadata'].get("token_count", 0),
-                        "headings": json.loads(match['metadata'].get("headings", [])),
-                        "page_no": json.loads(match["metadata"].get("pages", [])),
-                        "labels": json.loads(match["metadata"].get("labels", []))
+                        "headings": json.loads(match['metadata'].get("headings", "[]")),
+                        "page_no": json.loads(match["metadata"].get("page_no", "[]")),
+                        "labels": json.loads(match["metadata"].get("labels", "[]"))
                     }
                 })
             return {
