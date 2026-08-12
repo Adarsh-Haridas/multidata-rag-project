@@ -31,11 +31,11 @@ class RAGService:
         # Initialize services
         self.embedding_service = EmbeddingService(api_key=self.api_key, query_cache_service=query_cache_service)
         self.vector_service = VectorService()
-        self.llm_client = AsyncOpenAI(api_key=self.api_key)
+        self.llm_client = AsyncOpenAI(api_key=self.api_key, base_url="https://api.meshapi.ai/v1")
         self.query_cache_service = query_cache_service       # Optional cache service
 
         # LLM configuration
-        self.model = "gpt-4.1-mini"
+        self.model = "openai/gpt-4.1-mini"
         self.temperature = 0.0
         self.max_tokens = 1000
 

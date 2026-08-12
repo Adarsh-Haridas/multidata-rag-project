@@ -238,10 +238,10 @@ class QueryCacheService:
 
     def get_stats(self) -> Dict:
         """
-        Clear entire cache (use with caution).
+        Get cache hit/miss statistics.
 
         Returns:
-            True if successful
+            Dictionary with hit rates for each cache type
         """
 
         stats_with_rates = {}
@@ -251,7 +251,7 @@ class QueryCacheService:
             stats_with_rates[cache_type] = {
                 "hits": counts["hits"],
                 "misses": counts["misses"],
-                "total": total,
+                "total_cache_requests": total,
                 "hit_rate": f"{hit_rate:.1f}%"
             }
 
