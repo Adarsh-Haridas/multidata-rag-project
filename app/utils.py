@@ -11,7 +11,7 @@ class ValidationError(Exception):
         """Custom validation error exception."""
         pass
 
-class FileHandler:
+class FileValidator:
     """Validates uploaded files."""
 
     # Allowed file extensions and their MIME types
@@ -39,28 +39,28 @@ class FileHandler:
             ValidationError: If file is invalid
         """
 
-        if not file or file.filename:
+        if not file or not file.filename:
             raise ValidationError("No file or filename is provided!!!")
         
         # Check file extension
         file_ext = '.' + file.filename.rsplit('.',1)[-1].lower() if '.' in file.filename else ''
 
-        if file_ext not in FileHandler.ALLOWED_EXTENSIONS:
-            allowed_ext = ','.join(FileHandler.ALLOWED_EXTENSIONS.keys())
+        if file_ext not in FileValidator.ALLOWED_EXTENSIONS:
+            allowed_ext = ','.join(FileValidator.ALLOWED_EXTENSIONS.keys())
             raise ValidationError(
                  f"Invalid File type: {file_ext}. Allowed File types: {allowed_ext}"
             )
         
         # Check file size (if available)
         if hasattr(file, 'size') and file.size:
-             if file.size > FileHandler.MAX_FILE_SIZE:
-                  max_mb = FileHandler.MAX_FILE_SIZE/(1024*1024)
+             if file.size > FileValidator.MAX_FILE_SIZE:
+                  max_mb = FileValidator.MAX_FILE_SIZE/(1024*1024)
                   raise ValidationError(
                        f"file Size has exceeded the maximum allowed size of {max_mb:.0f} mb"
                   )
              
         @staticmethod
-        def get_file_extention(filename: str) -> str:
+        def get_file_extension(filename: str) -> str:
              """Get the file extension from filename."""
              return Path(filename).suffix.lower()
         

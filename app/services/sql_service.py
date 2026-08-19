@@ -104,7 +104,7 @@ class VannaAgentWrapper:
         self.tools = ToolRegistry()
         self.tools.register_local_tool(
             RunSqlTool(sql_runner=self.postgress_runner),
-            access_groups=['user', ['admin']]
+            access_groups=['user', 'admin']
         )
 
         # Create user resolver

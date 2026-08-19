@@ -103,8 +103,13 @@ class EmbeddingService:
                         ttl = settings.CACHE_TTL_EMBEDDINGS    # Default: 7 days
                         self.query_cache_service.set(cache_key, ttl, cache_value, cache_type = "embedding")
 
+                    none_count = sum(1 for e in embeddings if e is None)
+                    if none_count > 0:
+                        logger.error(f"{none_count} embeddings are still None after fill! "
+                                    f"text_to_generate={len(text_to_generate)}, new_embeddings={len(new_embeddings)}")
+
                     # Log cache statistics
-                    logger.debug(f"Embedding cahe: {cache_hits}hits, {cache_misses} misses"
+                    logger.debug(f"Embedding cache: {cache_hits}hits, {cache_misses} misses"
                                 f"{cache_hits / (cache_hits+cache_misses) * 100:.1f}% hit-rate")
                     
                     # Build usage info
@@ -118,6 +123,9 @@ class EmbeddingService:
                         "cache_hits": cache_hits,
                         "cache_misses": cache_misses
                     }
+
+                    if any(e is None for e in embeddings):
+                        raise Exception(f"Failed to generate {sum(1 for e in embeddings if e is None)} embeddings — check API response count")
 
                     return embeddings, usage_info
                 

@@ -59,7 +59,7 @@ class CacheService:
             logger.info(f"Using custom storage backend: {type(storage_backend).__name__}")
 
 
-    def _compute_document_id(self, file_path: Path) -> str:
+    def compute_document_id(self, file_path: Path) -> str:
         """
         Generate unique document ID from file contents using SHA-256.
         Same file = same ID (true content-based deduplication).
@@ -284,7 +284,7 @@ class CacheService:
                 return {
                     'cleared': False,
                     'message': 'Clear entire cache not fully implemented for S3 backend',
-                    'documents_cleared': 0,
+                    'documents_cleared': cleared_count,
                     'total_documents': len(document_ids)
                 }
         except Exception as e:

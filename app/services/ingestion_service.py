@@ -124,7 +124,8 @@ class DoclingService:
 
                 if meta:
                     # 2. Extract Headings list directly
-                    chunk_metadata["headings"]= getattr(meta, "headings", [])
+                    headings = getattr(meta, "headings", None)
+                    chunk_metadata["headings"]= headings if headings is not None else []
                     # 3. Handle nested doc_items array to extract structural labels and true pages
                     doc_items = getattr(meta, "doc_items", []) or []
 

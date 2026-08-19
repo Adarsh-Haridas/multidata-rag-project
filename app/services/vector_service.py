@@ -129,7 +129,7 @@ class VectorService:
             logger.info(f"Successfully upserted: {len(vectors_to_upsert)} vectors")
 
         except Exception as e:
-            raise Exception(f"Failed to add documents to pineconne: {str(e)}")
+            raise Exception(f"Failed to add documents to Pinecone: {str(e)}")
         
 
     def search(
@@ -245,6 +245,8 @@ class VectorService:
         except Exception as e:
             raise Exception(f"Failed to delete vectors: {str(e)}")
         
+
+    
 
         
 

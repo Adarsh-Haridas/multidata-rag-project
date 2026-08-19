@@ -38,7 +38,7 @@ class LocalStorageBackend(StorageBackend):
         Args:
             cache_dir: Path to cache directory (defaults to settings.CACHE_DIR)
         """
-        self.cache_dir = cache_dir or settings.CACHE_DIR
+        self.cache_dir = cache_dir or Path(settings.CACHE_DIR)
         self.cache_dir.mkdir(parents=True, exist_ok=True)
         logger.debug(f"Local storage initiated with cache directory: {self.cache_dir}")
 
